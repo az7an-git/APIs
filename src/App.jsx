@@ -6,16 +6,24 @@ const App = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch("https://api.spacexdata.com/v3/rockets")
-      .then((res) => res.json())
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("https://api.spacexdata.com/v3/rockets");
+        const response = await res.json();
+
         setData(response);
         setLoader(false);
-      })
-      .catch(() => {
+      } catch (err) {
+        console.error(err);
         setError(true);
         setLoader(false);
-      });
+      }
+    };
+
+    const delay = setTimeout(() => {
+      fetchData();
+    }, 2000);
+    return () => clearTimeout(delay);
   }, []);
 
   return (
@@ -35,22 +43,18 @@ const App = () => {
             key={rocket.rocket_id}
             className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 p-4"
           >
-            {/* Image */}
             <img
-              src={rocket.flickr_images[0]}
+              src={rocket.flickr_images[1]}
               alt={rocket.rocket_name}
               className="h-48 w-full object-cover rounded-lg"
             />
 
-            {/* Title */}
             <h2 className="text-xl font-semibold mt-4">{rocket.rocket_name}</h2>
 
-            {/* Description */}
             <p className="text-gray-600 text-sm mt-2 line-clamp-3">
               {rocket.description}
             </p>
 
-            {/* Button */}
             <button className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition">
               Read More
             </button>
