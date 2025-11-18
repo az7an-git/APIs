@@ -12,7 +12,7 @@ const Layout = () => {
       </main>
 
       <footer className="bg-gray-800 text-center text-white p-4 text-sm">
-        &copy; 2025 SpaceX Api Integration
+        &copy;2025 SpaceX&reg; Api Integration
       </footer>
     </div>
   );
