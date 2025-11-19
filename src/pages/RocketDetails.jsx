@@ -8,18 +8,31 @@ const RocketDetails = () => {
   const navigate = useNavigate();
   const [rocket, setRocket] = useState(null);
   const [loader, setLoader] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchRocket = async () => {
-      const data = await getSingleRocket(id);
-      setRocket(data);
-      setLoader(false);
+      try {
+        const data = await getSingleRocket(id);
+        setRocket(data);
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      } finally {
+        setLoader(false);
+      }
     };
 
     fetchRocket();
   }, [id]);
 
   if (loader) return <Loader />;
+  if (error)
+    return (
+      <h2 className="text-red-500 text-3xl grid place-items-center h-dvh">
+        Failed to fetch rocket details
+      </h2>
+    );
 
   return (
     <div className="max-w-4xl mx-auto p-6">
