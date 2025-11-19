@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getSingleRocket } from "../api/rockets";
 import Loader from "../components/Loader";
 
 const RocketDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [rocket, setRocket] = useState(null);
   const [loader, setLoader] = useState(true);
 
@@ -22,6 +23,12 @@ const RocketDetails = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-lg"
+      >
+        &larr; Back
+      </button>
       <h1 className="text-3xl font-bold mb-4">{rocket.rocket_name}</h1>
 
       <img
