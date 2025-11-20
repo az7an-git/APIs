@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export const NotFound = () => {
+export const PageNotFound = () => {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col justify-center items-center h-dvh">
